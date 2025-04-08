@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>客户数据</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+</head>
+<body>
+    <h1>客户数据表</h1>
+    <input type="text" id="searchInput" placeholder="搜索...">
+    <button onclick="searchTable()">搜索</button>
+    <button onclick="downloadExcel()">下载Excel</button>
+    <div id="tableContainer"></div>
+
+    <script>
+        // 替换为你的Google Sheets公开链接（第二步中发布的链接）
+        const sheetsUrl = "https://docs.google.com/spreadsheets/d/你的表格ID/gviz/tq?tqx=out:html";
+
+        // 加载表格数据
+        fetch(sheetsUrl)
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById("tableContainer").innerHTML = html;
+            });
+
+        // 搜索功能
+        function searchTable() {
+            const input = document.getElementById("searchInput").value.toLowerCase();
+            const rows = document.querySelectorAll("#tableContainer tr");
+            rows.forEach(row => {
+                const text = row.innerText.toLowerCase();
+                row.style.display = text.includes(input) ? "" : "none";
+            });
+        }
+
+        // 下载功能
+        function downloadExcel() {
+            const table = document.querySelector("#tableContainer table");
+            const wb = XLSX.utils.table_to_book(table);
+            XLSX.writeFile(wb, "客户数据.xlsx");
+        }
+    </script>
+</body>
+</html>
