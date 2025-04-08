@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>客户登录</title>
+</head>
+<body>
+    <h1>客户登录</h1>
+    <input type="password" id="password" placeholder="输入密码">
+    <button onclick="checkPassword()">登录</button>
+    <script>
+        function checkPassword() {
+            const password = "123456"; // 修改为你自己的密码
+            if (document.getElementById("password").value === password) {
+                window.location.href = "data.html"; // 跳转到数据页
+            } else {
+                alert("密码错误！");
+            }
+        }
+    </script>
+</body>
+</html>
